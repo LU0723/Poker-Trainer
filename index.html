@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poker Trainer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== HOME SCREEN ===== -->
+  <div id="screen-home" class="screen active">
+    <div class="home-wrap">
+
+      <header class="home-header">
+        <div class="brand-mark">♠</div>
+        <h1 class="brand-name">Poker Trainer</h1>
+        <p class="brand-sub">6max Cash Game &nbsp;·&nbsp; 100bb &nbsp;·&nbsp; RFI Trainer</p>
+      </header>
+
+      <section class="filter-section">
+        <p class="filter-label">Position</p>
+        <div class="position-grid">
+          <button class="pos-btn active" data-pos="All">All</button>
+          <button class="pos-btn" data-pos="UTG">UTG</button>
+          <button class="pos-btn" data-pos="HJ">HJ</button>
+          <button class="pos-btn" data-pos="CO">CO</button>
+          <button class="pos-btn" data-pos="BTN">BTN</button>
+          <button class="pos-btn" data-pos="SB">SB</button>
+        </div>
+      </section>
+
+      <button id="start-btn" class="btn-start">Start Training</button>
+
+    </div>
+  </div>
+
+  <!-- ===== TRAINER SCREEN ===== -->
+  <div id="screen-training" class="screen">
+    <div class="trainer-wrap">
+
+      <!-- Nav bar -->
+      <nav class="trainer-nav">
+        <button id="back-btn" class="btn-back">← Back</button>
+        <span class="mode-badge">6max · 100bb · RFI</span>
+      </nav>
+
+      <!-- Question prompt -->
+      <div class="question-row">
+        <p class="question-text">What is the correct action?</p>
+      </div>
+
+      <!-- ===== POKER TABLE ===== -->
+      <div class="table-area">
+
+        <!-- Felt surface -->
+        <div class="table-felt">
+          <div class="pot-info">Pot: <strong id="pot-value">1.5bb</strong></div>
+        </div>
+
+        <!-- 6 Seats — positioned around the felt -->
+        <div class="seat" id="seat-utg" data-pos="UTG">
+          <div class="seat-cards">
+            <div class="card-back"></div><div class="card-back"></div>
+          </div>
+          <div class="seat-hand"></div>
+          <div class="seat-name">UTG</div>
+          <div class="seat-stack">100</div>
+        </div>
+
+        <div class="seat" id="seat-hj" data-pos="HJ">
+          <div class="seat-cards">
+            <div class="card-back"></div><div class="card-back"></div>
+          </div>
+          <div class="seat-hand"></div>
+          <div class="seat-name">HJ</div>
+          <div class="seat-stack">100</div>
+        </div>
+
+        <div class="seat" id="seat-co" data-pos="CO">
+          <div class="seat-cards">
+            <div class="card-back"></div><div class="card-back"></div>
+          </div>
+          <div class="seat-hand"></div>
+          <div class="seat-name">CO</div>
+          <div class="seat-stack">100</div>
+        </div>
+
+        <div class="seat" id="seat-btn" data-pos="BTN">
+          <div class="seat-cards">
+            <div class="card-back"></div><div class="card-back"></div>
+          </div>
+          <div class="seat-hand"></div>
+          <div class="seat-name">BTN <span class="dealer-chip">D</span></div>
+          <div class="seat-stack">100</div>
+        </div>
+
+        <div class="seat" id="seat-sb" data-pos="SB">
+          <div class="seat-cards">
+            <div class="card-back"></div><div class="card-back"></div>
+          </div>
+          <div class="seat-hand"></div>
+          <div class="seat-name">SB</div>
+          <div class="seat-stack">99.5</div>
+        </div>
+
+        <div class="seat" id="seat-bb" data-pos="BB">
+          <div class="seat-cards">
+            <div class="card-back"></div><div class="card-back"></div>
+          </div>
+          <div class="seat-hand"></div>
+          <div class="seat-name">BB</div>
+          <div class="seat-stack">99</div>
+        </div>
+
+      </div>
+      <!-- end .table-area -->
+
+      <!-- ===== ACTION LIST ===== -->
+      <!-- Items are rendered by JS: renderActionList() -->
+      <div class="action-list" id="action-list"></div>
+
+      <!-- ===== FEEDBACK PANEL ===== -->
+      <div class="feedback-panel hidden" id="feedback-panel">
+        <div class="feedback-content">
+          <span class="feedback-verdict" id="feedback-verdict">Correct!</span>
+          <span class="feedback-detail" id="feedback-detail">CO should Open A9s</span>
+        </div>
+        <button class="btn-next" id="btn-next">Next →</button>
+      </div>
+
+      <!-- ===== STATS PANEL ===== -->
+      <div class="stats-panel">
+        <div class="stat-item">
+          <span class="stat-val" id="stat-accuracy">—</span>
+          <span class="stat-lbl">Accuracy</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <span class="stat-val" id="stat-questions">0</span>
+          <span class="stat-lbl">Questions</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
