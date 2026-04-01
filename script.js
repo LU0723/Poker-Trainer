@@ -88,29 +88,39 @@ function generateScenario() {
     ? allPositions
     : allPositions.filter(p => p === state.selectedPosition);
 
-  // Guard: if filter matches nothing (shouldn't happen), fall back to all
+  // Guard: if filter matches nothing, fall back to all
   const activePool = pool.length > 0 ? pool : allPositions;
 
   let position, hand, attempts = 0;
 
   do {
     position = activePool[Math.floor(Math.random() * activePool.length)];
-    const hands = Object.keys(RFI_DATA[position]);
-    hand = hands[Math.floor(Math.random() * hands.length)];
+
+    // CO uses the official 169-hand dataset; other positions use data.js approximation
+    const handPool = (position === 'CO')
+      ? Object.keys(CO_RFI.range_map)
+      : Object.keys(RFI_DATA[position]);
+
+    hand = handPool[Math.floor(Math.random() * handPool.length)];
     attempts++;
   } while (
-    // Avoid immediate repeat of the same spot (max 5 tries)
     attempts < 5 &&
     state.currentScenario !== null &&
     hand     === state.currentScenario.heroHand &&
     position === state.currentScenario.heroPosition
   );
 
+  // Lookup correct action from the appropriate source
+  // CO_RFI uses 'raise'/'fold'; trainer action ids use 'open'/'fold' → map here
+  const raw = (position === 'CO')
+    ? CO_RFI.range_map[hand]
+    : RFI_DATA[position][hand];
+
   return {
     heroPosition:  position,
     heroHand:      hand,
     potSize:       1.5,
-    correctAction: RFI_DATA[position][hand], // 'open' | 'fold'
+    correctAction: raw === 'raise' ? 'open' : raw,
   };
 }
 
